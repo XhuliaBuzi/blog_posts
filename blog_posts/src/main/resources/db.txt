@@ -1,0 +1,39 @@
+CREATE TABLE author  (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE posts (
+  `id` INT NOT NULL,
+  `likes` INT NOT NULL,
+  `popularity` FLOAT NOT NULL,
+  `reads` INT NOT NULL,
+  `author_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `author_id`),
+  CONSTRAINT `fk_posts_author1`
+    FOREIGN KEY (`author_id`)
+    REFERENCES author(`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+CREATE TABLE  tags (
+  `id` INT NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE posts_tags (
+  `posts_id` INT NOT NULL,
+  `tags_id` INT NOT NULL,
+  PRIMARY KEY (`posts_id`, `tags_id`),
+  CONSTRAINT `fk_posts_has_tags_posts`
+    FOREIGN KEY (`posts_id`)
+    REFERENCES posts (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_posts_has_tags_tags1`
+    FOREIGN KEY (`tags_id`)
+    REFERENCES tags (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
